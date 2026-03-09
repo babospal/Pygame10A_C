@@ -1,11 +1,21 @@
 import pygame
-import sys
+from Settings import (WIDTH, HEIGHT)
 
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 class Game:
 
+
+
     def run(self):
-        while True:
+        run: bool = True
+
+
+
+        while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    run = False
+
+    def __init__(self) -> None:
+        pygame.init()
+        pygame.display.set_caption("Dino Runner Pro Max")

@@ -1,5 +1,7 @@
+from Game import Game
 def main() -> None:
-    pass  # Kezd a kódolást itt!
+    game: Game = Game()
+    game.run()
 
 
 if __name__ == "__main__":
