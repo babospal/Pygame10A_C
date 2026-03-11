@@ -1,5 +1,6 @@
 import pygame
-from Settings import (WIDTH, HEIGHT, FPS)
+from Settings import WIDTH, HEIGHT, FPS
+
 
 class Game:
     def __init__(self) -> None:
