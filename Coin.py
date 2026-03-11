@@ -3,7 +3,7 @@ import pygame
 from Settings import (WIDTH)
 class Coin:
 
-    def __init__(self,speed):
+    def __init__(self,speed: int):
 
         y = random.randint(240,320)
         self.rect = pygame.Rect(WIDTH,y,20,20)
@@ -15,6 +15,6 @@ class Coin:
 
         self.rect.x -= self.speed
 
-    def draw(self,screen):
+    def draw(self,screen: pygame.Surface):
 
         pygame.draw.ellipse(screen,self.color,self.rect)

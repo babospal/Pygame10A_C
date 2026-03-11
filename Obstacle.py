@@ -4,7 +4,7 @@ from Settings import WIDTH, GROUND_Y
 
 class Obstacle:
 
-    def __init__(self,speed):
+    def __init__(self,speed: int):
 
         size = random.randint(35,55)
         self.rect = pygame.Rect(WIDTH,GROUND_Y-size,size,size)
@@ -16,6 +16,6 @@ class Obstacle:
 
         self.rect.x -= self.speed
 
-    def draw(self,screen):
+    def draw(self,screen: pygame.Surface):
 
         pygame.draw.rect(screen,self.color,self.rect)
