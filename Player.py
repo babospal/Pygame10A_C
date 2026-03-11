@@ -28,5 +28,5 @@ class Player:
             self.vel_y = 0
             self.jump_count = 0
 
-    def draw(self,screen):
+    def draw(self,screen: pygame.Surface):
         pygame.draw.rect(screen,self.color,self.rect)
