@@ -3,24 +3,19 @@ import pygame
 from Settings import WIDTH
 
 
-class Coin:
-    _y: int
-    _rect: pygame.Rect
-    _speed: int
-    _color: tuple[int, int, int]
+class Coin(pygame.sprite.Sprite):
+    def __init__(self, speed: float) -> None:
+        super().__init__()
+        self.image: pygame.Surface = pygame.Surface((20, 20), pygame.SRCALPHA)
+        pygame.draw.ellipse(self.image, (255, 220, 0), (0, 0, 20, 20))
+        self.rect: pygame.Rect = self.image.get_rect()
+        self.rect.x = WIDTH
+        self.rect.y = random.randint(240, 320)
 
-    def __init__(self, speed: int):
+        self.speed: float = speed
 
-        y = random.randint(240, 320)
-        self._rect = pygame.Rect(WIDTH, y, 20, 20)
+    def update(self) -> None:
+        self.rect.x -= int(self.speed)
 
-        self._speed = speed
-        self._color = (255, 220, 0)
-
-    def update(self):
-
-        self._rect.x -= self._speed
-
-    def draw(self, screen: pygame.Surface):
-
-        pygame.draw.ellipse(screen, self._color, self._rect)
+        if self.rect.right < 0:
+            self.kill()
