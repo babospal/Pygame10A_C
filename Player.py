@@ -2,39 +2,38 @@ import pygame
 from Settings import GROUND_Y
 
 
-class Player:
+class Player(pygame.sprite.Sprite):
+    _image: pygame.Surface
     _rect: pygame.Rect
     _vel_y: float
     _gravity: float
     _jump_power: float
     _jump_count: int
     _max_jumps: int
-    _color: tuple[int, int, int]
+    def __init__(self) -> None:
+        super().__init__()
+        self._image: pygame.Surface = pygame.Surface((50, 50))
+        self._image.fill((50, 200, 80))
+        self._rect: pygame.Rect = self._image.get_rect()
+        self._rect.x = 120
+        self._rect.bottom = GROUND_Y
 
-    def __init__(self):
-        self._rect = pygame.Rect(120, GROUND_Y - 50, 50, 50)
-        self._vel_y = 0
-        self._gravity = 0.8
-        self._jump_power = -14
-        self._jump_count = 0
-        self._max_jumps = 2
+        self._vel_y: float = 0.0
+        self._gravity: float = 0.8
+        self._jump_power: float = -14.0
+        self._jump_count: int = 0
+        self._max_jumps: int = 2
 
-        self.color = (50, 200, 80)
-
-    def jump(self):
+    def jump(self) -> None:
         if self._jump_count < self._max_jumps:
             self._vel_y = self._jump_power
             self._jump_count += 1
 
-    def update(self):
-
+    def update(self) -> None:
         self._vel_y += self._gravity
-        self._rect.y += self._vel_y
+        self._rect.y += int(self._vel_y)
 
         if self._rect.bottom >= GROUND_Y:
             self._rect.bottom = GROUND_Y
-            self._vel_y = 0
+            self._vel_y = 0.0
             self._jump_count = 0
-
-    def draw(self, screen: pygame.Surface):
-        pygame.draw.rect(screen, self._color, self._rect)
