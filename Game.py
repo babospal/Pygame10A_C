@@ -1,8 +1,10 @@
 import pygame
+from Player import Player
 from Settings import WIDTH, HEIGHT, FPS
 
 
 class Game:
+    player = Player()
     def __init__(self) -> None:
         pygame.init()
         pygame.display.set_caption("Dino Runner Pro Max")
@@ -18,3 +20,6 @@ class Game:
                 if event.type == pygame.QUIT:
                     run = False
                     pygame.display.flip()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.player.jump()
