@@ -1,6 +1,6 @@
-import pygame
 import sys
 import random
+import pygame
 from Player import Player
 from Obstacle import Obstacle
 from Coin import Coin
@@ -15,7 +15,7 @@ class Game:
         self.clock: pygame.time.Clock = pygame.time.Clock()
 
         self.font: pygame.font.Font = pygame.font.SysFont("Comic Sans MS", 28)
-        self.font: pygame.font.Font = pygame.font.SysFont("Comic Sans MS", 60)
+        self.big_font: pygame.font.Font = pygame.font.SysFont("Comic Sans MS", 60)
 
         self.running: bool = True
         self.state: str = "START"
@@ -38,6 +38,22 @@ class Game:
     ) -> None:
         img: pygame.Surface = font.render(text, True, color)
         self.screen.blit(img, (x, y))
+
+    def new_game(self) -> None:
+        self.score = 0
+        self.coin_score = 0
+        self.speed = 6.0
+        self.obstacle_timer = 0
+        self.coin_timer = 0
+
+        self.all_sprites.empty()
+        self.obstacles.empty()
+        self.coins.empty()
+
+        self.player = Player()
+
+        self.all_sprites.add(self.player)
+        self.state = "PLAYING"
 
     def events(self) -> None:
         for event in pygame.event.get():
@@ -102,7 +118,7 @@ class Game:
             self.draw_text(
                 f"Coins: {self.coin_score}", self.font, (255, 255, 0), 20, 50
             )
-        
+
         pygame.display.update()
 
     def run(self) -> None:
