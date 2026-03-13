@@ -3,24 +3,23 @@ import pygame
 from Settings import WIDTH, GROUND_Y
 
 
-class Obstacle:
-    _size: int
+class Obstacle(pygame.sprite.Sprite):
+    _image: pygame.Surface
     _rect: pygame.Rect
-    _speed: int
-    _color: tuple[int, int, int]
+    _speed: float
+    def __init__(self, speed: float) -> None:
+        super().__init__()
+        size: int = random.randint(35, 55)
+        self._image: pygame.Surface = pygame.Surface((size, size))
+        self._image.fill((200, 60, 60))
+        self._rect: pygame.Rect = self._image.get_rect()
+        self._rect.x = WIDTH
+        self._rect.bottom = GROUND_Y
 
-    def __init__(self, speed: int):
+        self._speed: float = speed
 
-        size = random.randint(35, 55)
-        self._rect = pygame.Rect(WIDTH, GROUND_Y - size, size, size)
+    def update(self) -> None:
+        self._rect.x -= int(self._speed)
 
-        self._speed = speed
-        self._color = (200, 60, 60)
-
-    def update(self):
-
-        self._rect.x -= self._speed
-
-    def draw(self, screen: pygame.Surface):
-
-        pygame.draw.rect(screen, self._color, self._rect)
+        if self._rect.right < 0:
+            self.kill()
