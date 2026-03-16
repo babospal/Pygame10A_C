@@ -1,21 +1,26 @@
-import pygame
 import random
+import pygame
 from Settings import WIDTH, GROUND_Y
 
+
 class Obstacle:
+    _size: int
+    _rect: pygame.Rect
+    _speed: int
+    _color: tuple[int, int, int]
 
-    def __init__(self,speed):
+    def __init__(self, speed: int):
 
-        size = random.randint(35,55)
-        self.rect = pygame.Rect(WIDTH,GROUND_Y-size,size,size)
+        size = random.randint(35, 55)
+        self._rect = pygame.Rect(WIDTH, GROUND_Y - size, size, size)
 
-        self.speed = speed
-        self.color = (200,60,60)
+        self._speed = speed
+        self._color = (200, 60, 60)
 
     def update(self):
 
-        self.rect.x -= self.speed
+        self._rect.x -= self._speed
 
-    def draw(self,screen):
+    def draw(self, screen: pygame.Surface):
 
-        pygame.draw.rect(screen,self.color,self.rect)
+        pygame.draw.rect(screen, self._color, self._rect)
