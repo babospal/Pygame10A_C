@@ -7,19 +7,20 @@ class Obstacle(pygame.sprite.Sprite):
     _image: pygame.Surface
     _rect: pygame.Rect
     _speed: float
+
     def __init__(self, speed: float) -> None:
         super().__init__()
         size: int = random.randint(35, 55)
-        self._image: pygame.Surface = pygame.Surface((size, size))
-        self._image.fill((200, 60, 60))
-        self._rect: pygame.Rect = self._image.get_rect()
-        self._rect.x = WIDTH
-        self._rect.bottom = GROUND_Y
+        self.image: pygame.Surface = pygame.Surface((size, size))
+        self.image.fill((200, 60, 60))
+        self.rect: pygame.Rect = self.image.get_rect()
+        self.rect.x = WIDTH
+        self.rect.bottom = GROUND_Y
 
-        self._speed: float = speed
+        self.speed: float = speed
 
     def update(self) -> None:
-        self._rect.x -= int(self._speed)
+        self.rect.x -= int(self.speed)
 
-        if self._rect.right < 0:
+        if self.rect.right < 0:
             self.kill()

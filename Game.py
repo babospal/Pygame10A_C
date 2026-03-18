@@ -1,6 +1,7 @@
 import sys
 import random
 import pygame
+from Background import Background
 from Player import Player
 from Obstacle import Obstacle
 from Coin import Coin
@@ -32,9 +33,10 @@ class Game:
         )
         self.obstacles: pygame.sprite.Group[Obstacle] = pygame.sprite.Group()
         self.coins: pygame.sprite.Group[Coin] = pygame.sprite.Group()
+        self.background: Background = Background()
 
     def draw_text(
-        self, text: str, font: pygame.font.Font, color: tuple[int, int, int], x, y
+        self, text: str, font: pygame.font.Font, color: tuple[int, int, int], x: int, y: int
     ) -> None:
         img: pygame.Surface = font.render(text, True, color)
         self.screen.blit(img, (x, y))
@@ -51,6 +53,7 @@ class Game:
         self.coins.empty()
 
         self.player = Player()
+        self.background = Background()
 
         self.all_sprites.add(self.player)
         self.state = "PLAYING"
@@ -73,6 +76,7 @@ class Game:
             return
 
         self.speed = 6.0 + (self.score // 500)
+        self.background.update(self.speed)
         self.score += 1
 
         self.obstacle_timer += 1
@@ -114,6 +118,7 @@ class Game:
             )
 
         elif self.state == "PLAYING":
+            self.background.draw(self.screen)
             self.draw_text(f"Score: {self.score}", self.font, (255, 255, 255), 20, 20)
             self.draw_text(
                 f"Coins: {self.coin_score}", self.font, (255, 255, 0), 20, 50
