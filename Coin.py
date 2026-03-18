@@ -21,7 +21,6 @@ class Coin(pygame.sprite.Sprite):
         pygame.draw.ellipse(self.image, (255, 220, 0), (0, 0, 20, 20))
 
         self.rect: pygame.Rect = self.image.get_rect()
-
         self.rect.x = WIDTH
         self.rect.y = random.randint(GROUND_Y - 80, GROUND_Y - 30)
 
