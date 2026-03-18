@@ -7,6 +7,7 @@ class Obstacle(pygame.sprite.Sprite):
     _image: pygame.Surface
     _rect: pygame.Rect
     _speed: float
+
     def __init__(self, speed: float) -> None:
         super().__init__()
         size: int = random.randint(35, 55)

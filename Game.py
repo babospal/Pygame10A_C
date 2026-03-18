@@ -34,7 +34,7 @@ class Game:
         self.coins: pygame.sprite.Group[Coin] = pygame.sprite.Group()
 
     def draw_text(
-        self, text: str, font: pygame.font.Font, color: tuple[int, int, int], x, y
+        self, text: str, font: pygame.font.Font, color: tuple[int, int, int], x: int, y: int
     ) -> None:
         img: pygame.Surface = font.render(text, True, color)
         self.screen.blit(img, (x, y))
