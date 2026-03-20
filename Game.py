@@ -10,6 +10,8 @@ from Settings import HEIGHT, WIDTH, FPS
 
 
 class Game:
+    pygame.mixer.init()  # Initialize the mixer module.
+    _coin_sound = pygame.mixer.Sound('sounds/coin_sound.wav')  # Load a sound.
     def __init__(self) -> None:
         pygame.init()
         pygame.display.set_caption("Dino Runner Pro Max")
@@ -106,6 +108,7 @@ class Game:
         # Coin pickup
         if pygame.sprite.spritecollide(self.player, self.coins, True):
             self.coin_score += 1
+            self._coin_sound.play()
 
     def draw(self) -> None:
         self.screen.fill((20, 20, 30))
