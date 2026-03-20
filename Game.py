@@ -1,11 +1,12 @@
+from __future__ import annotations
 import sys
 import random
 import pygame
-from Background import Background
 from Player import Player
-from Obstacle import Obstacle
+from Background import Background
 from Coin import Coin
-from Settings import WIDTH, HEIGHT, FPS
+from Obstacle import Obstacle
+from Settings import HEIGHT, WIDTH, FPS
 
 
 class Game:
@@ -20,7 +21,6 @@ class Game:
 
         self.running: bool = True
         self.state: str = "START"
-        self.player: Player = Player()
 
         self.score: int = 0
         self.coin_score: int = 0
@@ -33,6 +33,8 @@ class Game:
         )
         self.obstacles: pygame.sprite.Group[Obstacle] = pygame.sprite.Group()
         self.coins: pygame.sprite.Group[Coin] = pygame.sprite.Group()
+
+        self.player: Player = Player()
         self.background: Background = Background()
 
     def draw_text(
@@ -79,6 +81,7 @@ class Game:
         self.background.update(self.speed)
         self.score += 1
 
+        # Obstacle spawn
         self.obstacle_timer += 1
         if self.obstacle_timer > random.randint(70, 120):
             obs: Obstacle = Obstacle(self.speed)
@@ -86,6 +89,7 @@ class Game:
             self.all_sprites.add(obs)
             self.obstacle_timer = 0
 
+        # Coin spawn
         self.coin_timer += 1
         if self.coin_timer > random.randint(120, 200):
             coin: Coin = Coin(self.speed)
@@ -95,9 +99,11 @@ class Game:
 
         self.all_sprites.update()
 
+        # Obstacle collision
         if pygame.sprite.spritecollide(self.player, self.obstacles, False):
             self.state = "GAMEOVER"
 
+        # Coin pickup
         if pygame.sprite.spritecollide(self.player, self.coins, True):
             self.coin_score += 1
 
@@ -119,6 +125,8 @@ class Game:
 
         elif self.state == "PLAYING":
             self.background.draw(self.screen)
+            self.all_sprites.draw(self.screen)
+
             self.draw_text(f"Score: {self.score}", self.font, (255, 255, 255), 20, 20)
             self.draw_text(
                 f"Coins: {self.coin_score}", self.font, (255, 255, 0), 20, 50
