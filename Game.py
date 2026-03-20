@@ -10,6 +10,9 @@ from Settings import HEIGHT, WIDTH, FPS
 
 
 class Game:
+    pygame.mixer.init()
+    _coin_sound = pygame.mixer.Sound('sounds/coin_sound.wav')
+    _game_over_sound = pygame.mixer.Sound('sounds/game_over_sound.wav')
     def __init__(self) -> None:
         pygame.init()
         pygame.display.set_caption("Dino Runner Pro Max")
@@ -102,10 +105,12 @@ class Game:
         # Obstacle collision
         if pygame.sprite.spritecollide(self.player, self.obstacles, False):
             self.state = "GAMEOVER"
+            self._game_over_sound.play()
 
         # Coin pickup
         if pygame.sprite.spritecollide(self.player, self.coins, True):
             self.coin_score += 1
+            self._coin_sound.play()
 
     def draw(self) -> None:
         self.screen.fill((20, 20, 30))
