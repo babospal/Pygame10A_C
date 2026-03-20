@@ -4,7 +4,6 @@ from Settings import WIDTH, GROUND_Y
 
 
 class Coin(pygame.sprite.Sprite):
-    coin_sound = pygame.mixer.Sound("coin sound.wav")
     def __init__(self, speed: float) -> None:
         super().__init__()
 
@@ -23,5 +22,3 @@ class Coin(pygame.sprite.Sprite):
 
         if self.rect.right < 0:
             self.kill()
-            pygame.mixer.Sound.play(self.coin_sound)
-            pygame.mixer.music.stop()
