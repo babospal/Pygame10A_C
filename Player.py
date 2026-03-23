@@ -5,9 +5,19 @@ from Settings import GROUND_Y
 class Player(pygame.sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
-        self.image: pygame.Surface = pygame.Surface((50, 50))
-        self.image.fill((50, 200, 80))
+        # load images
+        self.frog = pygame.transform.scale(
+            pygame.image.load("frog.png").convert_alpha(), (100, 100)
+        )
+        self.frog_jumping = pygame.transform.scale(
+            pygame.image.load("frog_jumping.png").convert_alpha(),
+            (100, 100),
+        )
+
+        # set default image
+        self.image: pygame.Surface = self.frog
         self.rect: pygame.Rect = self.image.get_rect()
+
         self.rect.x = 120
         self.rect.bottom = GROUND_Y
 
@@ -26,7 +36,14 @@ class Player(pygame.sprite.Sprite):
         self.vel_y += self.gravity
         self.rect.y += int(self.vel_y)
 
+        # ground check
         if self.rect.bottom >= GROUND_Y:
             self.rect.bottom = GROUND_Y
             self.vel_y = 0.0
             self.jump_count = 0
+
+        # 👇 IMAGE SWITCHING LOGIC
+        if self.rect.bottom < GROUND_Y:
+            self.image = self.frog_jumping
+        else:
+            self.image = self.frog
