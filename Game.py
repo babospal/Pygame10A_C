@@ -10,9 +10,6 @@ from Settings import HEIGHT, WIDTH, FPS
 
 
 class Game:
-    pygame.mixer.init()
-    _coin_sound = pygame.mixer.Sound('sounds/coin_sound.wav')
-    _game_over_sound = pygame.mixer.Sound('sounds/game_over_sound.wav')
     def __init__(self) -> None:
         pygame.init()
         pygame.display.set_caption("Dino Runner Pro Max")
@@ -39,6 +36,14 @@ class Game:
 
         self.player: Player = Player()
         self.background: Background = Background()
+
+        pygame.mixer.init()
+        self.coin_sound = pygame.mixer.Sound('sounds/coin_sound.wav')
+        self.game_over_sound = pygame.mixer.Sound('sounds/game_over_sound.wav')
+
+        with open("highscore.txt", "r", encoding="utf-8") as file:
+            for hs in file.read().splitlines():
+                self.highscore : int = int(hs)
 
     def draw_text(
         self, text: str, font: pygame.font.Font, color: tuple[int, int, int], x: int, y: int
@@ -105,12 +110,16 @@ class Game:
         # Obstacle collision
         if pygame.sprite.spritecollide(self.player, self.obstacles, False):
             self.state = "GAMEOVER"
-            self._game_over_sound.play()
+            self.game_over_sound.play()
+            if self.score > self.highscore:
+                self.highscore = self.score
+                with open("highscore.txt", "w", encoding="utf-8") as file:
+                    file.writelines(str(self.highscore))
 
         # Coin pickup
         if pygame.sprite.spritecollide(self.player, self.coins, True):
             self.coin_score += 1
-            self._coin_sound.play()
+            self.coin_sound.play()
 
     def draw(self) -> None:
         self.screen.fill((20, 20, 30))
@@ -124,8 +133,9 @@ class Game:
         elif self.state == "GAMEOVER":
             self.draw_text("GAME OVER :(", self.big_font, (255, 80, 80), 250, 140)
             self.draw_text(f"Score: {self.score}", self.font, (255, 255, 255), 370, 230)
+            self.draw_text(f"Highscore: {self.highscore}", self.font, (255, 255, 255), 340, 263)
             self.draw_text(
-                "Press any key to restart", self.font, (200, 200, 200), 290, 280
+                "Press any key to restart", self.font, (200, 200, 200), 290, 305
             )
 
         elif self.state == "PLAYING":
