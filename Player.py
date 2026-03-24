@@ -21,6 +21,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = 120
         self.rect.bottom = GROUND_Y
 
+        self.rect.inflate_ip(-40, -40)
+
         self.vel_y: float = 0.0
         self.gravity: float = 0.8
         self.jump_power: float = -14.0
