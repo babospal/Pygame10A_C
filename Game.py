@@ -116,16 +116,16 @@ class Game:
         self.screen.fill((20, 20, 30))
 
         if self.state == "START":
-            self.draw_text("Dino Runner Pro Max", self.big_font, (255, 255, 255), 300, 150)
+            self.draw_text("Dino Runner Pro Max", self.big_font, (255, 255, 255), 165, 150)
             self.draw_text(
-                "Press any key to start!", self.font, (200, 200, 200), 340, 250
+                "Press any key to start!", self.font, (200, 200, 200), 300, 250
             )
 
         elif self.state == "GAMEOVER":
-            self.draw_text("GAME OVER :(", self.big_font, (255, 80, 80), 300, 140)
-            self.draw_text(f"Score: {self.score}", self.font, (255, 255, 255), 400, 230)
+            self.draw_text("GAME OVER :(", self.big_font, (255, 80, 80), 250, 140)
+            self.draw_text(f"Score: {self.score}", self.font, (255, 255, 255), 370, 230)
             self.draw_text(
-                "Press any key to restart", self.font, (200, 200, 200), 330, 280
+                "Press any key to restart", self.font, (200, 200, 200), 290, 280
             )
 
         elif self.state == "PLAYING":

@@ -10,7 +10,7 @@ class Background:
 
     def __init__(self) -> None:
         # load background image
-        self._image: pygame.Surface = pygame.image.load("background.png").convert()
+        self._image: pygame.Surface = pygame.image.load("images/background.png").convert()
         self._image = pygame.transform.scale(self._image, (WIDTH, HEIGHT))
 
         # scrolling positions
