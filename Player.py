@@ -7,10 +7,10 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         # load images
         self.frog = pygame.transform.scale(
-            pygame.image.load("frog.png").convert_alpha(), (100, 100)
+            pygame.image.load("images/frog.png").convert_alpha(), (100, 100)
         )
         self.frog_jumping = pygame.transform.scale(
-            pygame.image.load("frog_jumping.png").convert_alpha(),
+            pygame.image.load("images/frog_jumping.png").convert_alpha(),
             (100, 100),
         )
 
@@ -42,7 +42,7 @@ class Player(pygame.sprite.Sprite):
             self.vel_y = 0.0
             self.jump_count = 0
 
-        # 👇 IMAGE SWITCHING LOGIC
+        # image switching
         if self.rect.bottom < GROUND_Y:
             self.image = self.frog_jumping
         else:

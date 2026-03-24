@@ -20,8 +20,8 @@ class Obstacle(pygame.sprite.Sprite):
         self.speed: float = speed
 
         # Load images
-        big_img = pygame.image.load("tree_trunk_big.png").convert_alpha()
-        small_img = pygame.image.load("tree_trunk_small.png").convert_alpha()
+        big_img = pygame.image.load("images/tree_trunk_big.png").convert_alpha()
+        small_img = pygame.image.load("images/tree_trunk_small.png").convert_alpha()
 
         # Choose type
         if random.randint(0, 1) == 0:
