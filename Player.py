@@ -23,26 +23,26 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.inflate_ip(-40, -40)
 
-        self.vel_y: float = 0.0
-        self.gravity: float = 0.8
-        self.jump_power: float = -14.0
-        self.jump_count: int = 0
-        self.max_jumps: int = 2
+        self._vel_y: float = 0.0
+        self._gravity: float = 0.8
+        self._jump_power: float = -14.0
+        self._jump_count: int = 0
+        self._max_jumps: int = 2
 
     def jump(self) -> None:
-        if self.jump_count < self.max_jumps:
-            self.vel_y = self.jump_power
-            self.jump_count += 1
+        if self._jump_count < self._max_jumps:
+            self._vel_y = self._jump_power
+            self._jump_count += 1
 
     def update(self) -> None:
-        self.vel_y += self.gravity
-        self.rect.y += int(self.vel_y)
+        self._vel_y += self._gravity
+        self.rect.y += int(self._vel_y)
 
         # ground check
         if self.rect.bottom >= GROUND_Y:
             self.rect.bottom = GROUND_Y
-            self.vel_y = 0.0
-            self.jump_count = 0
+            self._vel_y = 0.0
+            self._jump_count = 0
 
         # image switching
         if self.rect.bottom < GROUND_Y:
